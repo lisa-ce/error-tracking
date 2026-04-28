@@ -10,10 +10,13 @@ form.addEventListener("submit", async (e) => {
   const tagsInput = document.getElementById("tags").value;
   const solution = document.getElementById("solution").value;
 
-  const tags = tagsInput.split(",").map(tag => tag.trim());
+  const tags = tagsInput
+    .split(",")
+    .map(tag => tag.trim())
+    .filter(tag => tag !== "");
 
   try {
-    await fetch(`${API_URL}/errors`, {
+    const response = await fetch(`${API_URL}/errors`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
@@ -26,13 +29,16 @@ form.addEventListener("submit", async (e) => {
       })
     });
 
-    alert("Error logged successfully 🚀");
+    if (!response.ok) {
+      const errorText = await response.text();
+      throw new Error(errorText);
+    }
 
-    // Redirect back to homepage
+    alert("Error logged successfully");
     window.location.href = "index.html";
 
   } catch (err) {
-    console.error(err);
-    alert("Failed to log error");
+    console.error("Full error:", err);
+    alert("Failed to log error. Check console.");
   }
 });

@@ -15,17 +15,31 @@
   </div>
 </header>
 
-<section class="log-form-section">
-  <h1>Log a New Error</h1>
+<section class="log-page">
+  <div class="log-container">
+    <h1>Log a New Error</h1>
+    <p class="subtitle">Share the error you encountered and how you solved it.</p>
 
-  <form id="errorForm" class="error-form">
-    <input type="text" id="title" placeholder="Error title" required />
-    <textarea id="message" placeholder="Describe the error..." required></textarea>
-    <input type="text" id="tags" placeholder="Tags (react, node, etc)" />
-    <textarea id="solution" placeholder="Solution (optional)"></textarea>
+    <form id="errorForm" class="error-form">
 
-    <button type="submit" class="primary-btn">Submit Error</button>
-  </form>
+      <label>Title</label>
+      <input type="text" id="title" placeholder="e.g. React key prop warning" required />
+
+      <label>Description</label>
+      <textarea id="message" rows="5" placeholder="Explain what happened..." required></textarea>
+
+      <label>Tags</label>
+      <input type="text" id="tags" placeholder="react, javascript, node" />
+
+      <label>Solution</label>
+      <textarea id="solution" rows="6" placeholder="How did you fix it?"></textarea>
+
+      <button type="submit" class="primary-btn submit-btn">
+        Submit Error
+      </button>
+
+    </form>
+  </div>
 </section>
 
 <script src="log-error.js"></script>

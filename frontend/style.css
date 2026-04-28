@@ -272,24 +272,53 @@ footer {
     gap: 10px;
   }
 }
-.log-form-section {
-  padding: 60px 8%;
-  border-bottom: 1px solid #1c1c2b;
+.log-page {
+  min-height: 100vh;
+  padding: 80px 10%;
+  background: radial-gradient(circle at top, rgba(115, 74, 255, 0.2), transparent 50%);
+}
+
+.log-container {
+  max-width: 900px;
+  margin: auto;
+}
+
+.log-container h1 {
+  font-size: 48px;
+  margin-bottom: 10px;
+}
+
+.subtitle {
+  color: #9a9aac;
+  margin-bottom: 40px;
 }
 
 .error-form {
   display: flex;
   flex-direction: column;
-  gap: 14px;
-  margin-top: 20px;
-  max-width: 600px;
+  gap: 18px;
+}
+
+.error-form label {
+  font-weight: 600;
+  color: #cfcfe6;
 }
 
 .error-form input,
 .error-form textarea {
-  padding: 12px;
-  border-radius: 8px;
+  padding: 14px;
+  border-radius: 10px;
   border: 1px solid #222;
   background: #11111c;
   color: white;
+  font-size: 16px;
+}
+
+.error-form textarea {
+  resize: vertical;
+}
+
+.submit-btn {
+  margin-top: 20px;
+  width: fit-content;
 }
