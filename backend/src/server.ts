@@ -1,6 +1,6 @@
 import express from "express";
 import cors from "cors";
-import {db} from "./firebase";
+import { db } from "./firebase";
 
 const app = express();
 const PORT = 3000;

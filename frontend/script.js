@@ -1,63 +1,117 @@
-const errors = [
+const API_URL = "http://localhost:3000";
+
+const fallbackErrors = [
   {
-    votes: 211,
     title: "React: 'Each child in a list should have a unique key prop'",
-    description: "Rendering mapped lists without stable keys causes weird UI bugs and warnings.",
+    message: "Rendering mapped lists without stable keys causes weird UI bugs and warnings.",
     tags: ["react", "javascript"],
-    author: "Maya Chen",
-    comments: 3,
-    views: "6,431",
-    time: "2 hours ago"
+    author: "Lisa Chikovore",
+    comments: 3
   },
   {
-    votes: 143,
     title: "Node.js: EADDRINUSE address already in use :::3000",
-    description: "Every time my dev server crashes, the port stays bound and I can't restart without rebooting.",
+    message: "Every time my dev server crashes, the port stays bound and I can't restart without rebooting.",
     tags: ["node.js", "javascript"],
-    author: "Jonas Weber",
-    comments: 1,
-    views: "4,221",
-    time: "5 hours ago"
+    author: "Ngaaruhe Hei",
+    comments: 1
   },
   {
-    votes: 76,
     title: "PostgreSQL: 'duplicate key value violates unique constraint'",
-    description: "Inserting rows in bulk and one collision kills the whole transaction. I want to skip duplicates and keep going.",
+    message: "Inserting rows in bulk and one collision kills the whole transaction. I want to skip duplicates and keep going.",
     tags: ["databases"],
-    author: "Olu Bankole",
-    comments: 1,
-    views: "3,318",
-    time: "12 hours ago"
+    author: "Niita Shilongo",
+    comments: 1
   }
 ];
 
 const errorList = document.getElementById("errorList");
+const searchInput = document.querySelector(".search-box input");
+const tagButtons = document.querySelectorAll(".tag-list button");
 
-errors.forEach(error => {
-  const card = document.createElement("div");
-  card.className = "error-card";
+let allErrors = [];
 
-  card.innerHTML = `
-    <div class="votes">
-      ↑
-      <strong>${error.votes}</strong>
-      <small>VOTES</small>
-    </div>
+async function loadErrors() {
+  try {
+    const response = await fetch(`${API_URL}/errors`);
+    const data = await response.json();
 
-    <div class="error-content">
-      <span class="status">✓ Solved</span>
-      <h3>${error.title}</h3>
-      <p>${error.description}</p>
+    allErrors = Object.entries(data).map(([id, error]) => ({
+      id,
+      ...error
+    }));
 
-      <div>
-        ${error.tags.map(tag => `<span class="tag">${tag}</span>`).join("")}
+    if (allErrors.length === 0) {
+      allErrors = fallbackErrors;
+    }
+
+    displayErrors(allErrors);
+  } catch (error) {
+    console.log("Backend not connected yet:", error);
+    allErrors = fallbackErrors;
+    displayErrors(allErrors);
+  }
+}
+
+function displayErrors(errors) {
+  errorList.innerHTML = "";
+
+  if (errors.length === 0) {
+    errorList.innerHTML = `<p class="empty-message">No errors found.</p>`;
+    return;
+  }
+
+  errors.forEach(error => {
+    const card = document.createElement("div");
+    card.className = "error-card";
+
+    card.innerHTML = `
+      <div class="error-content">
+        <span class="status">Solved</span>
+        <h3>${error.title || "Untitled error"}</h3>
+        <p>${error.message || error.description || "No description added yet."}</p>
+
+        <div>
+          ${(error.tags || []).map(tag => `<span class="tag">${tag}</span>`).join("")}
+        </div>
+
+        <div class="meta">
+          by <strong>${error.author || "Anonymous"}</strong> &nbsp; 💬 ${error.comments || 0}
+        </div>
       </div>
+    `;
 
-      <div class="meta">
-        by <strong>${error.author}</strong> &nbsp; 💬 ${error.comments} &nbsp; 👁 ${error.views} &nbsp; ${error.time}
-      </div>
-    </div>
-  `;
+    errorList.appendChild(card);
+  });
+}
 
-  errorList.appendChild(card);
+searchInput.addEventListener("input", () => {
+  const searchValue = searchInput.value.toLowerCase();
+
+  const filteredErrors = allErrors.filter(error => {
+    const title = (error.title || "").toLowerCase();
+    const message = (error.message || error.description || "").toLowerCase();
+    const tags = (error.tags || []).join(" ").toLowerCase();
+
+    return (
+      title.includes(searchValue) ||
+      message.includes(searchValue) ||
+      tags.includes(searchValue)
+    );
+  });
+
+  displayErrors(filteredErrors);
 });
+
+tagButtons.forEach(button => {
+  button.addEventListener("click", () => {
+    const selectedTag = button.textContent.toLowerCase();
+
+    const filteredErrors = allErrors.filter(error =>
+      (error.tags || []).map(tag => tag.toLowerCase()).includes(selectedTag)
+    );
+
+    displayErrors(filteredErrors);
+  });
+});
+
+loadErrors();
