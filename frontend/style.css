@@ -1,0 +1,274 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Iosevka+Charon:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Inter, Arial, sans-serif;
+}
+
+body {
+  background: #08080f;
+  color: #f4f4f7;
+}
+
+.navbar {
+  height: 74px;
+  padding: 0 8%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid #1e1e2e;
+  background: rgba(10, 10, 18, 0.95);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-weight: 800;
+  font-size: 22px;
+}
+
+.logo-icon {
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  background: linear-gradient(135deg, #7c5cff, #c45cff);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 30px rgba(140, 80, 255, 0.8);
+}
+
+.search-box {
+  width: 40%;
+  height: 44px;
+  border: 1px solid #1f2030;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  padding: 0 14px;
+  gap: 10px;
+  background: #11111c;
+}
+
+.search-box input {
+  width: 100%;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: white;
+  font-size: 15px;
+}
+
+nav {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+nav a {
+  color: white;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.log-btn,
+.primary-btn {
+  border: none;
+  color: #111;
+  background: linear-gradient(135deg, #7657ff, #c45cff);
+  padding: 13px 22px;
+  border-radius: 10px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.hero {
+  min-height: 520px;
+  text-align: center;
+  padding: 90px 20px;
+  background: radial-gradient(circle at top, rgba(115, 74, 255, 0.25), transparent 45%);
+  border-bottom: 1px solid #1c1c2b;
+}
+
+.hero h1 {
+  font-size: 76px;
+  line-height: 1.05;
+  letter-spacing: -3px;
+}
+
+.hero h1 span {
+  color: #a65cff;
+}
+
+.hero p {
+  max-width: 720px;
+  margin: 28px auto;
+  color: #a4a4b6;
+  font-size: 20px;
+  line-height: 1.5;
+}
+
+.hero-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 14px;
+  margin-top: 40px;
+}
+
+.secondary-btn {
+  padding: 13px 30px;
+  border-radius: 10px;
+  border: 1px solid #292949;
+  background: #111126;
+  color: #8c6cff;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.trending,
+.tags {
+  padding: 70px 8%;
+  border-bottom: 1px solid #1c1c2b;
+}
+
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 28px;
+}
+
+.section-header h2,
+.tags h2 {
+  font-size: 30px;
+}
+
+.section-header p,
+.tags p {
+  color: #8d8da3;
+  margin-top: 8px;
+}
+
+.section-header a {
+  color: white;
+  text-decoration: none;
+  font-weight: 700;
+}
+
+.error-card {
+  display: flex;
+  gap: 32px;
+  padding: 24px;
+  margin-bottom: 16px;
+  background: #0f111a;
+  border: 1px solid #202032;
+  border-radius: 12px;
+}
+
+.votes {
+  width: 60px;
+  text-align: center;
+  color: #a4a4b6;
+}
+
+.votes strong {
+  display: block;
+  color: white;
+  font-size: 18px;
+  margin-top: 8px;
+}
+
+.error-content .status {
+  color: #23c483;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.error-content h3 {
+  margin: 10px 0;
+  font-size: 20px;
+}
+
+.error-content p {
+  color: #9a9aac;
+  margin-bottom: 14px;
+}
+
+.tag {
+  display: inline-block;
+  background: #1a1b25;
+  color: #b8b8c7;
+  padding: 6px 12px;
+  border-radius: 8px;
+  font-size: 14px;
+  margin-right: 6px;
+}
+
+.meta {
+  margin-top: 14px;
+  color: #88889b;
+  font-size: 14px;
+}
+
+.tag-list {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 28px;
+}
+
+.tag-list button {
+  background: #10111a;
+  border: 1px solid #222333;
+  color: #ddd;
+  padding: 10px 16px;
+  border-radius: 9px;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+footer {
+  padding: 35px 8%;
+  display: flex;
+  justify-content: space-between;
+  color: #85859a;
+}
+
+@media (max-width: 900px) {
+  .navbar {
+    flex-direction: column;
+    height: auto;
+    padding: 18px;
+    gap: 15px;
+  }
+
+  .search-box {
+    width: 100%;
+  }
+
+  .hero h1 {
+    font-size: 45px;
+  }
+
+  .hero-buttons {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .error-card {
+    flex-direction: column;
+  }
+
+  footer {
+    flex-direction: column;
+    gap: 10px;
+  }
+}

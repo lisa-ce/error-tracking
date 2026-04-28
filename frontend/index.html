@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>stackr</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <header class="navbar">
+    <div class="logo">
+      <div class="logo-icon">⌘</div>
+      <span>stackr</span>
+    </div>
+
+    <div class="search-box">
+      
+      <input type="text" placeholder="Search errors, stack traces, frameworks..." />
+    </div>
+
+    <nav>
+      <a href="#browse">Browse</a>
+      <button class="log-btn">Log error</button>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <h1>
+      Never solve the <br />
+      <span>same error twice.</span>
+    </h1>
+
+    <p>
+      A knowledge base built by developers, for developers. Log the errors you hit,
+      document the fix that worked, and find proven solutions in seconds.
+    </p>
+
+    <div class="hero-buttons">
+      <button class="primary-btn">Search the knowledge base</button>
+      <button class="secondary-btn">Log an error</button>
+    </div>
+  </section>
+
+  <section class="trending">
+    <div class="section-header">
+      <div>
+        <h2>Trending errors</h2>
+        <p>What devs are hitting this week.</p>
+      </div>
+      <a href="#">View all →</a>
+    </div>
+
+    <div id="errorList"></div>
+  </section>
+
+  <section class="tags" id="browse">
+    <h2>Browse by tag</h2>
+    <p>Filter the knowledge base by language, framework, or category.</p>
+
+    <div class="tag-list">
+      <button>typescript</button>
+      <button>javascript</button>
+      <button>react</button>
+      <button>node.js</button>
+      <button>html</button>
+      <button>css</button>
+      <button>databases</button>
+    </div>
+  </section>
+
+  <footer>
+    <p>© stackr — never solve the same error twice.</p>
+    
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
