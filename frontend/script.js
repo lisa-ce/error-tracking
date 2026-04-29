@@ -1,29 +1,5 @@
 const API_URL = "http://localhost:3000";
 
-const fallbackErrors = [
-  {
-    title: "React: 'Each child in a list should have a unique key prop'",
-    message: "Rendering mapped lists without stable keys causes weird UI bugs and warnings.",
-    tags: ["react", "javascript"],
-    author: "Lisa Chikovore",
-    comments: 3
-  },
-  {
-    title: "Node.js: EADDRINUSE address already in use :::3000",
-    message: "Every time my dev server crashes, the port stays bound and I can't restart without rebooting.",
-    tags: ["node.js", "javascript"],
-    author: "Ngaaruhe Hei",
-    comments: 1
-  },
-  {
-    title: "PostgreSQL: 'duplicate key value violates unique constraint'",
-    message: "Inserting rows in bulk and one collision kills the whole transaction. I want to skip duplicates and keep going.",
-    tags: ["databases"],
-    author: "Niita Shilongo",
-    comments: 1
-  }
-];
-
 const errorList = document.getElementById("errorList");
 const searchInput = document.querySelector(".search-box input");
 const tagButtons = document.querySelectorAll(".tag-list button");
@@ -35,20 +11,15 @@ async function loadErrors() {
     const response = await fetch(`${API_URL}/errors`);
     const data = await response.json();
 
-    allErrors = Object.entries(data).map(([id, error]) => ({
+    allErrors = Object.entries(data || {}).map(([id, error]) => ({
       id,
       ...error
     }));
 
-    if (allErrors.length === 0) {
-      allErrors = fallbackErrors;
-    }
-
     displayErrors(allErrors);
   } catch (error) {
-    console.log("Backend not connected yet:", error);
-    allErrors = fallbackErrors;
-    displayErrors(allErrors);
+    console.error("Failed to load errors:", error);
+    errorList.innerHTML = `<p class="empty-message">Could not load errors.</p>`;
   }
 }
 
@@ -67,8 +38,8 @@ function displayErrors(errors) {
     card.innerHTML = `
       <div class="error-content">
         <span class="status">Solved</span>
-        <h3>${error.title || "Untitled error"}</h3>
-        <p>${error.message || error.description || "No description added yet."}</p>
+        <h3>${error.title}</h3>
+        <p>${error.message}</p>
 
         <div>
           ${(error.tags || []).map(tag => `<span class="tag">${tag}</span>`).join("")}
@@ -85,32 +56,26 @@ function displayErrors(errors) {
 }
 
 searchInput.addEventListener("input", () => {
-  const searchValue = searchInput.value.toLowerCase();
+  const value = searchInput.value.toLowerCase();
 
-  const filteredErrors = allErrors.filter(error => {
-    const title = (error.title || "").toLowerCase();
-    const message = (error.message || error.description || "").toLowerCase();
-    const tags = (error.tags || []).join(" ").toLowerCase();
+  const filtered = allErrors.filter(error =>
+    (error.title || "").toLowerCase().includes(value) ||
+    (error.message || "").toLowerCase().includes(value) ||
+    (error.tags || []).join(" ").toLowerCase().includes(value)
+  );
 
-    return (
-      title.includes(searchValue) ||
-      message.includes(searchValue) ||
-      tags.includes(searchValue)
-    );
-  });
-
-  displayErrors(filteredErrors);
+  displayErrors(filtered);
 });
 
 tagButtons.forEach(button => {
   button.addEventListener("click", () => {
-    const selectedTag = button.textContent.toLowerCase();
+    const tag = button.textContent.toLowerCase();
 
-    const filteredErrors = allErrors.filter(error =>
-      (error.tags || []).map(tag => tag.toLowerCase()).includes(selectedTag)
+    const filtered = allErrors.filter(error =>
+      (error.tags || []).map(t => t.toLowerCase()).includes(tag)
     );
 
-    displayErrors(filteredErrors);
+    displayErrors(filtered);
   });
 });
 
